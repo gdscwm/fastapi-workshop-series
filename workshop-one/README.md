@@ -43,10 +43,27 @@ uvicorn main:app --reload
 ```
 Note: if this doesn't work and you're in your system terminal, try running it in your IDE's built-in terminal.
 
+Let's break down this command:
+* `main` refers to the file name
+* `app` refers to object of FastAPI created inside our `main.py` file
+* `--reload` tells uvicorn to automatically restart the server when it detects changes in `main.py`
+
 Now, go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/). You should see a `{"message":"Hello world"}` -- exactly what we returned from our FastAPI endpoint!
 
-Let's break down what we did here.
-TODO BREAKDOWN
+Let's break down our `main.py` code, line by line.
+* `from fastapi import FastAPI` We import FastAPI, which is a Python class that provides all the functionality for the API.
+* `app = FastAPI()` We create an instance of the class FastAPI and name it app. This is the app referred to by uvicorn in the above command.
+* `@app.get("/")` This is a **path operation decorator**. GET is a type of **path operation** (more on those below).
+What's inside the parentheses is our **path**, which is what gets typed into the URL.
+* `async def root():` We define the function that will execute whenever someone visits the above path.
+* `return {"message": "Hello world"}` We return a response to the client whenever the route is accessed.
+
+### Path Operations
+There are many different path operations, but the vast majority of the time, you use these four:
+- **GET**: read data (aka user input)
+- **POST**: create data
+- **PUT**: update data
+- **DELETE**: delete data
 
 
 #### A quick note on JSON
@@ -63,6 +80,9 @@ TODO DEFINE
 
 ### Sources
 https://www.educative.io/blog/python-fastapi-tutorial
+
 https://www.datacamp.com/tutorial/introduction-fastapi-tutorial
+
 https://www.youtube.com/watch?v=-ykeT6kk4bk
+
 https://fastapi.tiangolo.com/
