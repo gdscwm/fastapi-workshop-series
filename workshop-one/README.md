@@ -10,9 +10,43 @@ It's a high-performance, super fast Python framework that integrates multiple po
 data access. It also just all around makes your life so much easier, and makes building APIs painless. Data is
 automatically transformed to and from Python objects so you can simply code Python. Arguably the best part: it
 creates automatic interactive documentation for your code.
+## Setup
+1. Create a directory for your code by opening the command line (if you're using Mac/Linux, open Terminal, if you're on Windows, use Powershell)
+and enter the following commands:
+```
+mkdir fastapi-workshop-series
+cd fastapi-workshop-series
+```
+You should now be in the directory `fastapi-workshop-series`.  
+\
+2. Now we want to create a virtual environment in the `fastapi-workshop-series` directory. Run the following commands:
+```
+python3 --version
+```
+We want to see a version greater than or equal to 3.7. If you don't have this, please raise your hand.
+```
+python3 -m venv [venvname]
+```
+Where you replace `[venvname]` with what you want your virtual environment to be called. _We strongly recommend calling it `.venv.`_  
+\
+3. Activate your virtual environment with the following command:
+```
+source [venvname]/bin/activate
+```
+So if you named your virtual environment `.venv`, the full command will look like:
+```
+source .venv/bin/activate
+```
+If this command does not work for you, refer to [the python documentation](https://docs.python.org/3/library/venv.html#how-venvs-work) for further options, and raise your hand.  
+\
+4. Confirm that things are set up correctly using the following command:
+```
+pip list
+```
+you should see two packages: `pip` and `setuptools`. If you see these packages, you're ready to move onto package installation!
 
 
-### Setup
+## Package installation
 1. Open up your command line (if you're using Mac/Linux, this will be Terminal, if you're on Windows, use Powershell)
 and enter the following commands:
 ```commandline
