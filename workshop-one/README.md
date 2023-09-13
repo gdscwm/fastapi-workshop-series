@@ -170,6 +170,8 @@ Go back into your FastAPI docs, and see that the description now pops up next to
 
 What happens if you enter 0? What if you go to [http://127.0.0.1:8000/course/0](http://127.0.0.1:8000/course/0)?
 
+# This is where we stopped. We'll go over the code below in Workshop Two.
+
 #### PUT endpoint
 Dana Willner is the best professor ever, and I really want to enroll in her class. How can I do that?
 
