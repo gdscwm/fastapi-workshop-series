@@ -37,6 +37,10 @@ So if you named your virtual environment `.venv`, the full command will look lik
 ```
 source .venv/bin/activate
 ```
+If you're on a non-Linux system (eg Windows), consult this table to activate your virtual environment:
+<img width="1379" alt="Screenshot 2023-09-19 at 3 45 01 PM" src="https://github.com/gdscwm/fastapi-workshop-series/assets/102433378/09451c6e-6280-46d4-82fc-9e567c270460">
+
+
 If this command does not work for you, refer to [the python documentation](https://docs.python.org/3/library/venv.html#how-venvs-work) for further options, and raise your hand.  
 \
 4. Confirm that things are set up correctly using the following command:
