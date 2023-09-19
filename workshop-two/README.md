@@ -33,7 +33,30 @@ Try it out in the docs!
 
 Then go back to our `GET` endpoint and check the course again -- under `current_enr`, the value should now be 1.
 
+### Optional Extension #1
+___
+Before we add more data to our `COURSES`, we may want to add some object-oriented design to aid us. For example,
+creating a `Course` class may be useful, because all entries in `COURSES` have course names, professors, etc.
 
+We'll get more into classes next work shop, but now it might be useful to have a class definition that looks like this:
+```python
+class Course:
+   def __init__(self, [any params this class should know]):
+      self.field = param
+      ...
+```
+Our new `COURSES` dictionary should look something like:
+```python
+COURSES = {
+    1: Course("Data Viz", "Dana Willner", etc.)
+    ...
+}
+```
+Or you could define your courses prior to the dictionary definition.  
+Some things to think about:
+1. Do we need the `COURSES` dictionary anymore? Or could we make the `course_id` an attribute of the `Course` class?
+2. How do we need to update how we access and change `course` information in the endpoint functions in `main.py`?
+___
 ## Query Parameters
 First, we're going to expand our fake course database to have a little more to work with. Copy the dictionary below to the top of
 your main.py, replacing the old dictionary:
@@ -66,6 +89,14 @@ COURSES = {
 }
 ```
 
+### Optional extension #2
+___
+If you get here before the rest of the workshop -- Let's move this dictionary into a separate location, so `main.py` 
+only has FastAPI endpoints. Decluttering your code as you go is good practice. 
+1. Create a new python file in the same directory as `main.py`
+2. Copy over the `COURSES` dictionary into your new file
+3. Import the `COURSES` dictionary from your new file
+___
 Sweet! Now let's hit our new database with some API requests.
 
 ### What's a query parameter?
@@ -103,6 +134,22 @@ If we were trying to find the information for "Data Visualization", we would vis
 - `name` is set equal to `Data Visualization`, the course we're trying to get. (Note that since you can't have spaces in
 URLs, they're notated as `%20`. Try typing in the URL with a space instead -- your browser will automatically convert
 it to `%20`.)
+- 
+### Optional Extension #3
+___
+What else can you think of that we could `PUT` or `POST` to this "database" of courses? Could we update multiple fields
+at once (e.g. update `professor` and `max_enr` in the same endpoint)? What if we wanted to create an entirely new class
+entry in the `COURSES` "database"? 
+1. Create a new endpoint to accomplish one of the tasks above, or come up with your own task!
+   2. Remember: Use `PUT` if you're updating existing data, and use `POST` if you're creating new data.
+3. Think about what parameters you need, and how you want to pass them:
+   4. Should they be query or path params? Does it matter?
+   5. If you're updating data, you probably want corresponding params. If you're creating an entirely new class entry, 
+   what params do you need?
+3. Add some error handling to your endpoint! Let's assume for now we only want one class per name. You could also check 
+if the class is over-enrolled.
+
+___
 
 ### Optional and default values
 We could have easily written the above function with a path parameter. What really makes query parameters useful and 
