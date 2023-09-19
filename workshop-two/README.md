@@ -13,7 +13,7 @@ set up on your system.
 ### PUT endpoint
 Dana Willner is the best professor ever, and I really want to enroll in her class. How can I do that?
 
-We're going to use a `PUT` endpoint to update our dummy data. Copy this code into your main.py:
+We're going to use a `PUT` endpoint to update our dummy data. Copy this code into your `main.py`:
 ```python
 @app.put("/class/{course_id}/enroll")
 async def enroll(course_id: int):
@@ -141,10 +141,10 @@ What else can you think of that we could `PUT` or `POST` to this "database" of c
 at once (e.g. update `professor` and `max_enr` in the same endpoint)? What if we wanted to create an entirely new class
 entry in the `COURSES` "database"? 
 1. Create a new endpoint to accomplish one of the tasks above, or come up with your own task!
-   2. Remember: Use `PUT` if you're updating existing data, and use `POST` if you're creating new data.
-3. Think about what parameters you need, and how you want to pass them:
-   4. Should they be query or path params? Does it matter?
-   5. If you're updating data, you probably want corresponding params. If you're creating an entirely new class entry, 
+    - Remember: Use `PUT` if you're updating existing data, and use `POST` if you're creating new data.
+2. Think about what parameters you need, and how you want to pass them:
+    - Should they be query or path params? Does it matter?
+    - If you're updating data, you probably want corresponding params. If you're creating an entirely new class entry, 
    what params do you need?
 3. Add some error handling to your endpoint! Let's assume for now we only want one class per name. You could also check 
 if the class is over-enrolled.
