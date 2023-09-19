@@ -119,7 +119,7 @@ There should be one `GET` endpoint in there right now for our "Hello World" func
 in the top right, and click `Execute`. Under "Response body", you should see the same `{"message": "Hello world"}`. We use the docs because they're 
 easier to understand, and offer more information when something goes wrong.
 
-## Let's make an API!
+# Let's make an API!
 Add this to the top of your file, right below the import statements:
 ```python
 COURSES = {
@@ -133,7 +133,7 @@ COURSES = {
 ```
 We'll use this as some dummy data to simulate the data in the opencourselist. 
 
-### Path parameters
+## Path parameters
 
 Copy this endpoint below your `root` endpoint:
 ```python
