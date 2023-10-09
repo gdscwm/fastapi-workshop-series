@@ -1,34 +1,15 @@
 from fastapi import FastAPI, Path, Query, HTTPException
 from typing import Optional
+from courses import COURSES
+from admin import admin
 
 app = FastAPI()
 
-COURSES = {
-    1: {
-        "name": "Data Visualization",
-        "professor": "Dana Willner",
-        "current_enr": 34,
-        "max_enr": 35,
-    },
-    2: {
-        "name": "Data Structures",
-        "professor": "Jim Deverick",
-        "current_enr": 35,
-        "max_enr": 35,
-    },
-    3: {
-        "name": "Computational Problem Solving",
-        "professor": "Timothy Davis",
-        "current_enr": 30,
-        "max_enr": 35,
-    },
-    4: {
-        "name": "Intro to Data Science",
-        "professor": "Dana Willner",
-        "current_enr": 36,
-        "max_enr": 35,
-    }
-}
+app.include_router(admin, tags=["admin"])
+
+my_courses= {}
+
+my_times={}
 
 
 @app.get("/")
