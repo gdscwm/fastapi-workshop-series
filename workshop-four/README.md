@@ -112,7 +112,24 @@ Note that we included a checkbox on our page, but it doesn't actually do anythin
 
 So how do we actually get data on courses from our FastAPI "database"?
 
-We first need to make sure our FastAPI server is actually running!
+We first need to make sure our FastAPI server is actually running, and ready to accept requests from our webpage!
+In your `main.py`, add the following import:
+```python
+from starlette.middleware.cors import CORSMiddleware
+```
+
+And the following code block: 
+```python
+app.add_middleware(CORSMiddleware,
+                   allow_origins=["*"],
+                   allow_credentials=True,
+                   allow_methods=["*"],
+                   allow_headers=["*"])
+```
+
+This will allow our python database to accept requests!
+
+
 With your virtual environment activated, run `uvicorn main:app --reload` to start the FastAPI server. You should be able to see the endpoints we've written in the past three workshops at [localhost:8000/docs](localhost:8000/docs).
 
 
@@ -132,6 +149,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     for (const [id, course] of Object.entries(data)) {
         courses.push({...course, id: id})
     }
+    
+    render();
 })
 ```
 This creates a list `courses` to hold the information on all courses. Then, we send a get request to _our_ FastAPI endpoint `list-courses`, which we store in `courses`!
@@ -163,6 +182,10 @@ function render() {
 }
 ```
 4. Finally, we need to call `render();` at the end of our EventListener function where we first populate `courses`!
+5. To make sure our HTML page can use the JavaScript functions, we need to include one line at the end of our HTML body:
+```angular2html
+<script src="scripts.js" defer></script>
+```
 
 Now, when you reload your webpage, you should see all courses displayed!
 
