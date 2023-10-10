@@ -3,8 +3,7 @@ from typing import Optional
 
 
 class Time(BaseModel):
-    days: str = Field(description="days of week", pattern="^[MTWRF]+$")
-    #start: int = Field(pattern="[0-2][0-9](00|30)$")
+    days: str = Field(description="Course meeting days", pattern="^[MTWRF]+$")
     start: int
     end: int
 
@@ -15,11 +14,5 @@ class Course(BaseModel):
     current_enr: Optional[int] = 0
     max_enr: int
     time: Time
-
-
-class CourseEnrollment(BaseModel):
-    name: str
-    current_enr: Optional[int] = 0
-    max_enr: int
 
 
