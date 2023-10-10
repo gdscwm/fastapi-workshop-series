@@ -35,7 +35,9 @@ For this tutorial, we'll avoid installations and stick to the basics.
 2. Now we have a bare bones webpage, but nothing in the `<body>`, so nothing will actually show up when we open it. Lets add a simple title to the page:
 ```angular2html
 <div>
-    <h2>Course Registration</h2>
+    <div id="register">
+        <h2>Course Registration</h2>
+    </div>
 </div>
 ```
 3. Open the webpage in your browser. Again, your IDE may offer to do it for you, but if not, from your terminal you can run 
@@ -81,7 +83,9 @@ To add frontend components, we need to go back to our HTML file. This page will 
 1. One tool that might be useful would be a list of all the courses in our course list. Let's add a placeholder for our courses by including another `<div>` below our `Course Registration` div. Add the code below so the `<body>` section now looks like:
 ```angular2html
 <div>
-    <h2>Course Registration</h2>
+    <div id="register">
+        <h2>Course Registration</h2>
+    </div>
 </div>
 
 <div>
@@ -92,6 +96,17 @@ To add frontend components, we need to go back to our HTML file. This page will 
     </label>
     <div class="class-list" id="class-list"></div>
 </div>
+```
+
+2. Let's add some spacing to our class-list as well -- add the following code to your CSS file:
+```css
+.class-list {
+    padding: 1rem 0;
+}
+
+.class-list > div {
+    margin-bottom: 2rem;
+}
 ```
 Note that we included a checkbox on our page, but it doesn't actually do anything yet because we haven't specified an `onclick` function.
 
@@ -150,3 +165,125 @@ function render() {
 4. Finally, we need to call `render();` at the end of our EventListener function where we first populate `courses`!
 
 Now, when you reload your webpage, you should see all courses displayed!
+
+## Registering for a course
+Now that we know all the courses we can choose from, what if we want to register for one?
+1. First, we need to add some HTML components so users can register. Add the code below to the `register` `<div>`
+```angular2html
+<div class="form">
+    <label for="class-select">
+        Select class to register for:
+    </label>
+    <select id="class-select">
+    </select>
+    <button onclick="enroll()" id="register">Register</button>
+</div>
+<p id="error" class="error-text"></p>
+```
+2. You'll notice that our dropdown to register has no classes in it! We need to add some javascript pull the classes from the backend and inject them into our dropdown.
+3. First, we need to define some variables to store our courses -- add the code below to the top of your JS file.
+```javascript
+// List of courses the user is enrolled in
+const enrolledCourses = [];
+
+// Holds error message for any issues with enrolling
+let enrollmentError = " ";
+```
+4. Then, in our render function, we want to actually display the courses in our `<select>` HTML element. Add the code below to the `render` function:
+```javascript
+// Populate the select with courses the user has not already registered for
+const select = document.getElementById("class-select");
+
+// Reset the currently selected item
+select.selectedIndex = -1;
+
+// Clear the current contents of the select
+select.innerHTML = " ";
+```
+
+Now, when we go to our webpage, our dropdown should be populated with the courses we see on the right!
+
+But, when we click register, nothing happens! This is because we haven't defined a function `enroll`. We'll do that again with JavaScript.
+
+5. Define a function `enroll` in `scripts.js` that contains the following code: 
+```javascript
+// Enroll in a course
+async function enroll() {
+    
+    // Get the ID of the course the user wants to register in
+    const courseId = document.getElementById("class-select").value;
+
+    // Make a request to enroll in the class
+    const response = await fetch(`http://localhost:8000/class/${courseId}/enroll`, {method: "PUT"});
+
+    // Check that the request to enroll was successful
+    if (response.ok) {
+        // Reset the error message
+        enrollmentError = "";
+
+        const enrolled = courses.find((course) => course.id === courseId)
+        // Increment the enrollment by 1 since the user just enrolled
+        enrolled.current_enr += 1;
+
+        // Add the course to the user's list of courses
+        enrolledCourses.push(enrolled);
+    } else {
+        const error = await response.json();
+        enrollmentError = error.detail;
+    }
+
+    // Re-render the interface
+    render();
+}
+```
+
+Now, when we click register on a course that isn't at capacity, we should see the number of students on the right increase by 1!
+
+6. Finally, in our `enroll` function, we defined an error message `enrollmentError` for when we can't register for a class, but we're not displaying it anywhere. We have an html element with the id `error` where we could display it. Now, when we call render, we want to disaplay our error.
+```javascript
+    // Render the error text
+    document.getElementById("error").innerText = enrollmentError;
+```
+
+Now, when we try and enroll in a class at capacity, we should see an error message saying we can't register!
+
+7. Let's add some simple styling to that error message so it pops! Add the following to your CSS file:
+```css
+.error-text {
+    color: red;
+    white-space: pre;
+    height: 1.5rem;
+}
+```
+
+## Display a user's courses
+Finally, the user may want to see the different classes that they've registered for. 
+1. Once again, we'll need to add an HTML element to display this data. Add the following code _below_ the `register div`
+```angular2html
+<div>
+    <h3>Currently Registered Classes</h3>
+    <p>You are currently registered for <span id="registered">0</span> courses</p>
+    <div class="class-list" id="registered-class-list"></div>
+</div>
+```
+
+When you reload the webpage, you should see these new HTML elements appear. But, when we register for a course, we don't see any change in the HTML -- let's add some Javascript!
+2. Add the following code to the `render` function so we populate the course the user has registered for each time the webpage loads:
+```javascript
+// Populate the list of registered courses
+const registeredList = document.getElementById("registered-class-list");
+
+// Remove any of the current options in the list
+registeredList.innerHTML = "";
+
+// Create an entry for every class the user is registered in
+enrolledCourses.forEach((course) => {
+    registeredList.append(returnCourseDiv(course));
+})
+
+// Update the number of enrolled courses to match the number of courses the user is in
+document.getElementById("registered").innerText = enrolledCourses.length;
+
+```
+
+Now, when you register for a course, you should be able to see the number of courses increase, and a description of the course appear on the left hand side!
