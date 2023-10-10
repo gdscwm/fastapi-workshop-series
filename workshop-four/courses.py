@@ -1,5 +1,3 @@
-from models import Course
-
 COURSES = {
     1: {
         "name": "Data Visualization",
@@ -7,9 +5,9 @@ COURSES = {
         "current_enr": 34,
         "max_enr": 35,
         "time": {
-            "days": "W",
-            "start": 0,
-            "end": 0
+            "days": "TR",
+            "start": 1100,
+            "end": 1220
         }
     },
     2: {
@@ -18,9 +16,9 @@ COURSES = {
         "current_enr": 35,
         "max_enr": 35,
         "time": {
-            "days": "W",
-            "start": 0,
-            "end": 0
+            "days": "TR",
+            "start": 1330,
+            "end": 1650
         }
     },
     3: {
@@ -29,9 +27,9 @@ COURSES = {
         "current_enr": 30,
         "max_enr": 35,
         "time": {
-            "days": "W",
-            "start": 0,
-            "end": 0
+            "days": "TR",
+            "start": 1100,
+            "end": 1220
         }
     },
     4: {
@@ -40,14 +38,9 @@ COURSES = {
         "current_enr": 36,
         "max_enr": 35,
         "time": {
-            "days": "W",
-            "start": 0,
-            "end": 0
+            "days": "MWF",
+            "start": 900,
+            "end": 950
         }
     },
 }
-
-# include time: slot, to have days of the week. something like
-# "time": {
-#     "Monday": [12:30, 14:00]
-# }
