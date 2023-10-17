@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Registration</title>
+    <link rel="stylesheet" type="text/css" href="frontend.css"/>
+</head>
+<body>
+<div>
+    <div class="register">
+        <h2>Course Registration</h2>
+
+        <div class="form">
+            <label for="class-select">
+                Select class to register for:
+            </label>
+            <select id="class-select">
+            </select>
+            <button onclick="enroll()" id="register">Register</button>
+        </div>
+        <p id="error" class="error-text"></p>
+    </div>
+
+    <div>
+        <h3>Currently Registered Classes</h3>
+        <p>You are currently registered for <span id="registered">0</span> courses</p>
+        <div class="class-list" id="registered-class-list"></div>
+    </div>
+</div>
+<div>
+    <h2>All Courses</h2>
+    <label>
+        Display only open courses?
+        <input type="checkbox" onclick="toggleVisibleCourses()"/>
+    </label>
+    <div class="class-list" id="class-list"></div>
+</div>
+<script src="scripts.js" defer></script>
+</body>
+</html>

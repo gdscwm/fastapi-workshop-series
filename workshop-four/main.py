@@ -1,9 +1,16 @@
 from fastapi import FastAPI, Path, Query, HTTPException
+from starlette.middleware.cors import CORSMiddleware
 from typing import Optional
 from courses import COURSES
 from admin import admin
 
 app = FastAPI()
+
+app.add_middleware(CORSMiddleware,
+                   allow_origins=["*"],
+                   allow_credentials=True,
+                   allow_methods=["*"],
+                   allow_headers=["*"])
 
 app.include_router(admin, tags=["admin"])
 
